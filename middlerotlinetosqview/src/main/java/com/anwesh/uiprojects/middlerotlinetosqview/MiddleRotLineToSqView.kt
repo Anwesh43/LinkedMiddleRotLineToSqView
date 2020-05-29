@@ -31,16 +31,17 @@ fun Float.divideScale(i : Int, n : Int) : Float = Math.min(n.inverse(), maxScale
 fun Float.sinify() : Float = Math.sin(this * Math.PI).toFloat()
 
 fun Canvas.drawMiddleRotLine(i : Int, sf : Float, size : Float, paint : Paint) {
-    val sf1 : Float = sf.divideScale(0, 2)
-    val sf2 : Float = sf.divideScale(1, 2)
+    val sf1 : Float = sf.divideScale(0, 3)
+    val sf2 : Float = sf.divideScale(1, 3)
+    val sf3 : Float = sf.divideScale(2, 3)
     val si : Float = 1f - 2 * i
     save()
-    rotate(-rot * sf1 * si)
-    drawLine(0f, 0f, 0f, -size, paint)
+    rotate(-rot * sf2 * si)
+    drawLine(0f, 0f, 0f, -size * sf1, paint)
     restore()
     save()
     translate(-size + size * i, 0f)
-    drawRect(RectF(0f, -size * sf2, size, 0f), paint)
+    drawRect(RectF(0f, -size * sf3, size, 0f), paint)
     restore()
 }
 
@@ -54,7 +55,7 @@ fun Canvas.drawMRLNode(i : Int, scale : Float, paint : Paint) {
     save()
     translate(w / 2, h / 2)
     for (j in 0..1) {
-        drawMiddleRotLine(i, scale.sinify(), size, paint)
+        drawMiddleRotLine(j, scale.sinify(), size, paint)
     }
     restore()
 }
