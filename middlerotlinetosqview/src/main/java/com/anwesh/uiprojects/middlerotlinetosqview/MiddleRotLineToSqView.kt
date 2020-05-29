@@ -210,4 +210,13 @@ class MiddleRotLineToSqView(ctx : Context) : View(ctx) {
             }
         }
     }
+
+    companion object {
+
+        fun create(activity : Activity) : MiddleRotLineToSqView {
+            val view : MiddleRotLineToSqView = MiddleRotLineToSqView(activity)
+            activity.setContentView(view)
+            return view
+        }
+    }
 }
