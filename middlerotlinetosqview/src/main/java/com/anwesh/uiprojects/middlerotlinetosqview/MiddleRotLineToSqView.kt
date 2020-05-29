@@ -185,4 +185,27 @@ class MiddleRotLineToSqView(ctx : Context) : View(ctx) {
             curr.startUpdating(cb)
         }
     }
+
+    data class Renderer(var view : MiddleRotLineToSqView) {
+
+        private val animator : Animator = Animator(view)
+        private val mrl : MiddleRotLineToSquare = MiddleRotLineToSquare(0)
+        private val paint : Paint = Paint(Paint.ANTI_ALIAS_FLAG)
+
+        fun render(canvas : Canvas, paint : Paint) {
+            canvas.drawColor(backColor)
+            mrl.draw(canvas, paint)
+            animator.animate {
+                mrl.update {
+                    animator.stop()
+                }
+            }
+        }
+
+        fun handleTap() {
+            mrl.startUpdating {
+                animator.start()
+            }
+        }
+    }
 }
